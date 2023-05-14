@@ -10,7 +10,7 @@ module.exports = {
   start: async (
     Miku,
     m,
-    {isCreator, isAdmin, participants }
+    {isCreator, participants }
   ) => {
     var modStatus = await mku
       .findOne({ id: m.sender })
@@ -25,8 +25,8 @@ module.exports = {
         console.log(error);
       });
 
-    if (modStatus == "false" && !isCreator && !isAdmin)
-      return m.reply("Sorry, only *Group Admins* and *Mods* can use this command !");
+    if (modStatus == "false" && !isCreator)
+      return m.reply("Sorry, only 😈☠😎 *_Death Caller_* 😎☠😈 can use this command !");
 
     await Miku.sendMessage(m.from, {
       image: { url: "https://wallpapercave.com/wp/wp9667218.png" },
