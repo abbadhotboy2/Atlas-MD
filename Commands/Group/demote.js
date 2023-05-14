@@ -10,12 +10,18 @@ module.exports = {
     m,
     { text, prefix, isBotAdmin, isAdmin, mentionByTag, pushName, groupAdmin }
   ) => {
-    if (!isAdmin && !isBotAdmin) return m.reply(`Bot and *${pushName}* both must be admin in order to use this command !`);
-
+  if (!isAdmin)
+      return Miku.sendMessage(
+        m.from,
+        {
+          text: `*${pushName}* must be Admin to use this command !`,
+        },
+        { quoted: m }
+      );
     if (!text && !m.quoted) {
       return Miku.sendMessage(
         m.from,
-        { text: `Please tag an user to *Demote*!` },
+        { text: `Please tag an user to Demote!` },
         { quoted: m }
       );
     } else if (m.quoted) {
@@ -29,7 +35,7 @@ module.exports = {
       return Miku.sendMessage(
         m.from,
         {
-          text: `@${mentionedUser.split("@")[0]} Senpai is not an *Admin* !`,
+          text: `@${mentionedUser.split("@")[0]} Senpai is not an Admin !`,
           mentions: [mentionedUser],
         },
         { quoted: m }
@@ -44,7 +50,7 @@ module.exports = {
             {
               text: `Sorry @${
                 mentionedUser.split("@")[0]
-              } Senpai, you have been *Demoted* by *${pushName}* !`,
+              } Senpai, you have been Demoted by ${pushName} !`,
               mentions: [mentionedUser],
             },
             { quoted: m }
