@@ -6,10 +6,18 @@ module.exports = {
   usage: `Tag a message and type *del*`,
   react: "🍁",
   start: async (Miku, m, { isAdmin, isBotAdmin, pushName }) => {
+    if (!isAdmin)
+      return Miku.sendMessage(
+        m.from,
+        {
+          text: `*${pushName}* must be Admin to use this command !`,
+        },
+        { quoted: m }
+      );
     if (!m.quoted)
       return m.reply(`Please mention a message to delete !`);
 
-    if (!isAdmin && !isBotAdmin) return m.reply(`Bot and *${pushName}* both must be admin in order to use this command !`);
+    if (!isAdmin && !isBotAdmin) return m.reply(`Bot and ${pushName} both must be admin in order to use this command !`);
     
     var { from, fromMe, id } = m.quoted;
 
